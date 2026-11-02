@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import BottomNav from './BottomNav';
 import WavyFooter from './WavyFooter';
+import homepageVideo from '../../CPH_MARATHON_2025_bw.mp4.mp4';
 
 /**
  * Screen 2: Homepage (`Homepage.svg`)
- * - Grayscale runner background (`/assets/homepage-bg.png` extracted from `Homepage.svg`).
+ * - Grayscale runner background video (`CPH_MARATHON_2025_bw.mp4.mp4`).
  * - Bottom navigation area resting just above the white wavy container, featuring three inline slanted yellow buttons:
  *   "Updates", "Explore", "Track Runner".
  * - Clicking "Explore" navigates to the Zones Page (`onNavigate('zones')`).
@@ -25,11 +26,15 @@ export default function HomePage({ onNavigate, lang, onToggleLang }) {
 
   return (
     <div className="relative w-full h-full flex flex-col justify-between bg-pureWhite overflow-hidden select-none">
-      {/* Grayscale Runner Background Image (Covers top area down into the wave, matching Homepage.svg M0 0H834V932H0V0Z) */}
+      {/* Grayscale Runner Background Video (Covers top area down into the wave, matching Homepage.svg M0 0H834V932H0V0Z) */}
       <div className="absolute inset-x-0 top-0 h-[84%] z-0 pointer-events-none overflow-hidden bg-darkOverlay">
-        <img
-          src="/assets/homepage-bg.png"
-          alt="Copenhagen Marathon Spectator View"
+        <video
+          src={homepageVideo}
+          poster="/assets/homepage-bg.png"
+          autoPlay
+          loop
+          muted
+          playsInline
           className="w-full h-full object-cover object-center"
         />
       </div>
