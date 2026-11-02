@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import BottomNav from './BottomNav';
 import WavyFooter from './WavyFooter';
-import homepageVideo from '../../CPH_MARATHON_2025_bw.mp4.mp4';
+import homepageVideo from '../../CPH_MARATHON_2025_bw.mp4';
 
 /**
  * Screen 2: Homepage (`Homepage.svg`)
@@ -30,7 +30,7 @@ export default function HomePage({ onNavigate, lang, onToggleLang }) {
       <div className="absolute inset-x-0 top-0 h-[84%] z-0 pointer-events-none overflow-hidden bg-darkOverlay">
         <video
           src={homepageVideo}
-          poster="/assets/homepage-bg.png"
+          poster="/CPH_MARATHON_2025_bw.mp4"
           autoPlay
           loop
           muted
