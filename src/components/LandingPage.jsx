@@ -3,12 +3,12 @@ import SlantedButton from './SlantedButton';
 import WavyFooter from './WavyFooter';
 
 /**
- * Screen 1: Landing Page (`Landing Page.svg`)
+ * Screen 1: Landing Page (`Proto - Figma Part Update/Landing Page.svg`)
  * - Full-screen background image of runners (grayscale) with a `#888888` dark overlay (`opacity-76`)
  *   and large subtle chevron/arrow patterns pointing right (`fill="white" fill-opacity="0.08"`).
- * - Text: "WELCOME TO" (White, wide letter-spacing), followed by a massive "COPENHAGEN MARATHON" in Primary Yellow (`#FFEE00`).
+ * - Text: "ARE YOU READY TO" (White, wide letter-spacing), followed by "EXPLORE THE / COPENHAGEN / MARATHON?" in Primary Yellow (`#FFEE00`).
  * - Centered slanted yellow button with "START" (`#FFEE32` parallelogram, `#494949` bold italic text).
- * - Shared white wavy container at the bottom.
+ * - Shared white wavy container at the bottom ("Scan the QR code to open on mobile").
  */
 export default function LandingPage({ onStart, lang, onToggleLang }) {
   return (
@@ -22,7 +22,7 @@ export default function LandingPage({ onStart, lang, onToggleLang }) {
         />
       </div>
 
-      {/* Subtle Large Chevron / Double-Arrow Pattern Pointing Right (Extracted directly from Landing Page.svg element 8) */}
+      {/* Subtle Large Chevron / Double-Arrow Pattern Pointing Right */}
       <div className="absolute top-0 right-0 w-[90%] max-w-[753px] h-[52%] max-h-[594px] z-10 pointer-events-none flex justify-end">
         <svg
           viewBox="81 0 753 594"
@@ -40,24 +40,38 @@ export default function LandingPage({ onStart, lang, onToggleLang }) {
       </div>
 
       {/* Main Content Area */}
-      <main className="relative z-20 flex-1 flex flex-col justify-between px-6 sm:px-10 md:px-12 pt-28 sm:pt-36 md:pt-44 pb-6">
-        {/* Hero Typography Block */}
-        <div className="mt-2 sm:mt-6 md:mt-8">
-          <p className="font-montserrat font-bold text-pureWhite text-lg sm:text-2xl md:text-[35px] tracking-[0.28em] uppercase mb-3 sm:mb-5 drop-shadow-sm">
-            {lang === 'EN' ? 'WELCOME TO' : 'VELKOMMEN TIL'}
+      <main className="relative z-20 flex-1 flex flex-col justify-between px-6 sm:px-10 md:px-12 pt-24 sm:pt-32 md:pt-40 pb-6">
+        {/* Hero Typography Block (Updated per Figma Landing Page.svg) */}
+        <div className="mt-2 sm:mt-4 md:mt-6">
+          <p className="font-montserrat font-bold text-pureWhite text-base sm:text-xl md:text-[26px] tracking-[0.26em] uppercase mb-3 sm:mb-5 drop-shadow-sm">
+            {lang === 'EN' ? 'ARE YOU READY TO' : 'ER DU KLAR TIL AT'}
           </p>
 
-          <h1 className="font-montserrat font-black italic text-primaryYellow text-4xl sm:text-6xl md:text-[72px] leading-[1.08] tracking-tight uppercase drop-shadow-md">
-            COPENHAGEN
-            <br />
-            MARATHON
+          <h1 className="font-montserrat font-black text-primaryYellow text-4xl sm:text-6xl md:text-[68px] leading-[1.12] tracking-[0.04em] uppercase drop-shadow-md">
+            {lang === 'EN' ? (
+              <>
+                EXPLORE THE
+                <br />
+                COPENHAGEN
+                <br />
+                MARATHON?
+              </>
+            ) : (
+              <>
+                UDFORSKE
+                <br />
+                COPENHAGEN
+                <br />
+                MARATHON?
+              </>
+            )}
           </h1>
         </div>
 
         {/* Centered Slanted Yellow 'START' Button */}
-        <div className="flex items-center justify-center my-auto pt-6 pb-4">
+        <div className="flex items-center justify-center my-auto pt-4 pb-2">
           <SlantedButton variant="start" onClick={onStart}>
-            {lang === 'EN' ? 'START' : 'START'}
+            START
           </SlantedButton>
         </div>
       </main>
@@ -67,4 +81,3 @@ export default function LandingPage({ onStart, lang, onToggleLang }) {
     </div>
   );
 }
-
