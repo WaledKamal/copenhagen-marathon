@@ -1,5 +1,5 @@
-import React from 'react';
-import SlantedButton from './SlantedButton';
+import React from "react";
+import SlantedButton from "./SlantedButton";
 
 /**
  * Bottom Navigation Bar (Shared by Homepage, Zones Page, Race Day Updates, and Track Runner):
@@ -11,37 +11,37 @@ export default function BottomNav({
   onSelectTab,
   onBack,
   updatesLabel,
-  lang = 'EN',
+  lang = "EN",
 }) {
   const defaultUpdatesLabel =
     updatesLabel ||
-    (activeTab === 'updates' || activeTab === 'track'
-      ? lang === 'EN'
-        ? 'Updates'
-        : 'Opdateringer'
-      : lang === 'EN'
-      ? 'Live Updates'
-      : 'Live Opdateringer');
+    (activeTab === "updates" || activeTab === "track"
+      ? lang === "EN"
+        ? "Updates"
+        : "Opdateringer"
+      : lang === "EN"
+        ? "Live Updates"
+        : "Live Opdateringer");
 
   const labels = {
     EN: {
       updates: defaultUpdatesLabel,
-      explore: 'Explore',
-      track: 'Track Runner',
+      explore: "Explore",
+      track: "Track Runner",
     },
     DK: {
       updates:
         updatesLabel ||
-        (activeTab === 'updates' || activeTab === 'track'
-          ? 'Opdateringer'
-          : 'Live Opdateringer'),
-      explore: 'Udforsk',
-      track: 'Find Løber',
+        (activeTab === "updates" || activeTab === "track"
+          ? "Opdateringer"
+          : "Live Opdateringer"),
+      explore: "Udforsk",
+      track: "Find Løber",
     },
   }[lang] || {
     updates: defaultUpdatesLabel,
-    explore: 'Explore',
-    track: 'Track Runner',
+    explore: "Explore",
+    track: "Track Runner",
   };
 
   return (
@@ -55,7 +55,7 @@ export default function BottomNav({
           <button
             type="button"
             onClick={onBack}
-            aria-label={lang === 'EN' ? 'Go back' : 'Gå tilbage'}
+            aria-label={lang === "EN" ? "Go back" : "Gå tilbage"}
             className="p-1.5 -ml-1.5 text-pureBlack hover:text-buttonTextDark active:scale-95 transition-transform focus:outline-none"
           >
             <svg
@@ -76,27 +76,27 @@ export default function BottomNav({
         </div>
       )}
 
-      <div className="grid grid-cols-3 gap-2.5 sm:gap-5 md:gap-8 items-center max-w-3xl mx-auto">
+      <div className="grid pt-5 grid-cols-3 gap-2.5 sm:gap-5 md:gap-8 items-center max-w-3xl mx-auto">
         <SlantedButton
           variant="nav"
-          active={activeTab === 'updates'}
-          onClick={() => onSelectTab('updates')}
+          active={activeTab === "updates"}
+          onClick={() => onSelectTab("updates")}
         >
           {labels.updates}
         </SlantedButton>
 
         <SlantedButton
           variant="nav"
-          active={activeTab === 'explore'}
-          onClick={() => onSelectTab('explore')}
+          active={activeTab === "explore"}
+          onClick={() => onSelectTab("explore")}
         >
           {labels.explore}
         </SlantedButton>
 
         <SlantedButton
           variant="nav"
-          active={activeTab === 'track'}
-          onClick={() => onSelectTab('track')}
+          active={activeTab === "track"}
+          onClick={() => onSelectTab("track")}
         >
           {labels.track}
         </SlantedButton>

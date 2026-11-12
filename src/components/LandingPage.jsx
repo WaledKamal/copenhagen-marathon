@@ -75,9 +75,10 @@ export default function LandingPage({ onStart, lang, onToggleLang }) {
           </SlantedButton>
         </div>
       </main>
-
+      <div className="relative z-20 w-full bg-pureWhite pt-3 sm:pt-4 flex flex-col shrink-0">
       {/* Shared Wavy Bottom Container */}
       <WavyFooter lang={lang} onToggleLang={onToggleLang} variant="landing" />
     </div>
+</div>
   );
 }

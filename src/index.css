@@ -28,3 +28,105 @@
   scrollbar-width: none;
 }
 
+@keyframes zoneBorderPulse {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+.zone-border-pulse {
+  animation: zoneBorderPulse 3s ease-in-out infinite;
+}
+
+/* Live Map Marker Animation Sequence (#FFD900) */
+@keyframes markerAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes markerCorePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+@keyframes markerGlowBreathe {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  25%,
+  100% {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+  62% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+}
+
+@keyframes markerRippleWave {
+  0% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  80% {
+    opacity: 0.08;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(4.2);
+  }
+}
+
+.marker-origin-center {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.marker-core-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation:
+    markerAppear 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    markerCorePulse 2.6s ease-in-out 0.65s infinite;
+}
+
+.marker-ambient-glow {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: markerGlowBreathe 3.2s cubic-bezier(0.4, 0, 0.2, 1) 0.25s infinite;
+}
+
+.marker-ripple-1 {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: markerRippleWave 2.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s infinite;
+}
+
+.marker-ripple-2 {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: markerRippleWave 2.8s cubic-bezier(0.16, 1, 0.3, 1) 1.85s infinite;
+}
+
+
+

@@ -1,199 +1,201 @@
-import React, { useState, useEffect } from 'react';
-import BottomNav from './BottomNav';
-import WavyFooter from './WavyFooter';
+import React, { useState, useEffect } from "react";
+import BottomNav from "./BottomNav";
+import WavyFooter from "./WavyFooter";
 
 const COURSE_CURVE_PATH =
-  'M58 391C58.1559 390.959 58.3116 390.918 58.4672 390.876M768 64C767.835 64.0094 767.67 64.0196 767.505 64.0306M74.0195 385.879C74.3189 385.766 74.6177 385.653 74.916 385.538M89.8815 378.996C90.1691 378.855 90.4562 378.713 90.7429 378.57M105.069 370.727C105.344 370.562 105.619 370.398 105.894 370.232M119.613 361.366C119.877 361.185 120.141 361.003 120.404 360.82M133.616 351.212C133.872 351.018 134.127 350.824 134.382 350.63M147.233 340.543C147.483 340.343 147.733 340.142 147.982 339.941M160.651 329.623C160.899 329.42 161.146 329.217 161.394 329.014M174.076 318.711C174.325 318.511 174.575 318.311 174.825 318.112M187.727 308.086C187.983 307.894 188.239 307.703 188.495 307.512M201.828 298.068C202.094 297.891 202.36 297.714 202.627 297.538M216.58 289.044C216.72 288.967 216.86 288.89 217 288.812C217.147 288.731 217.293 288.65 217.44 288.569M232.588 280.517C232.888 280.365 233.189 280.214 233.49 280.062M249.021 272.781C249.33 272.647 249.639 272.514 249.948 272.382M265.959 266.228C266.277 266.12 266.596 266.013 266.915 265.907M283.427 261.276C283.755 261.201 284.084 261.128 284.413 261.056M301.346 258.365C301.681 258.333 302.015 258.302 302.35 258.272M319.487 257.893C319.823 257.909 320.16 257.926 320.497 257.945M337.503 260.099C337.668 260.133 337.834 260.166 338 260.2C338.156 260.258 338.312 260.314 338.469 260.371M354.722 264.182C355.048 264.218 355.373 264.252 355.698 264.283M372.379 263.865C372.704 263.819 373.028 263.77 373.352 263.72M389.506 259.487C389.814 259.375 390.122 259.262 390.43 259.147M405.613 252.148C405.9 251.992 406.187 251.835 406.473 251.677M420.704 242.89C420.976 242.706 421.248 242.52 421.519 242.334M435.007 232.44C435.266 232.24 435.524 232.039 435.782 231.837M448.768 221.291C449.02 221.08 449.271 220.869 449.522 220.658M462.234 209.78C462.482 209.565 462.731 209.35 462.979 209.135M475.627 198.186C475.752 198.079 475.876 197.972 476 197.866C476.127 197.748 476.253 197.631 476.38 197.514M489.603 186.028C489.87 185.812 490.137 185.597 490.404 185.384M504.595 175.129C504.885 174.944 505.174 174.761 505.464 174.579M520.966 166.478C521.285 166.347 521.604 166.219 521.923 166.092M538.818 161.67C539.159 161.629 539.5 161.591 539.841 161.555M557.255 162.469C557.591 162.54 557.927 162.615 558.264 162.693M574.542 169.001C574.695 169.085 574.847 169.168 575 169.253C575.146 169.326 575.292 169.399 575.438 169.471M590.356 176.214C590.652 176.332 590.949 176.449 591.244 176.565M606.847 181.504C607.162 181.576 607.475 181.646 607.788 181.715M624.033 183.311C624.354 183.299 624.674 183.285 624.994 183.268M640.921 179.811C641.218 179.695 641.515 179.575 641.811 179.452M655.902 171.196C656.153 171.005 656.405 170.811 656.656 170.614M668.627 159.478C668.844 159.245 669.06 159.01 669.277 158.774M679.705 146.142C679.803 146.012 679.902 145.881 680 145.75C680.1 145.62 680.201 145.49 680.301 145.36M690.323 131.984C690.517 131.72 690.71 131.457 690.903 131.193M700.753 117.687C700.947 117.423 700.947 117.16 701.332 116.897M711.388 103.547C711.59 103.287 711.793 103.029 711.996 102.771M722.749 89.9761C722.97 89.7336 723.192 89.4923 723.413 89.2522M735.513 77.7471C735.769 77.5395 736.025 77.3338 736.282 77.1302M750.443 68.3426C750.743 68.2085 751.043 68.0772 751.343 67.9487';
+  "M58 391C58.1559 390.959 58.3116 390.918 58.4672 390.876M768 64C767.835 64.0094 767.67 64.0196 767.505 64.0306M74.0195 385.879C74.3189 385.766 74.6177 385.653 74.916 385.538M89.8815 378.996C90.1691 378.855 90.4562 378.713 90.7429 378.57M105.069 370.727C105.344 370.562 105.619 370.398 105.894 370.232M119.613 361.366C119.877 361.185 120.141 361.003 120.404 360.82M133.616 351.212C133.872 351.018 134.127 350.824 134.382 350.63M147.233 340.543C147.483 340.343 147.733 340.142 147.982 339.941M160.651 329.623C160.899 329.42 161.146 329.217 161.394 329.014M174.076 318.711C174.325 318.511 174.575 318.311 174.825 318.112M187.727 308.086C187.983 307.894 188.239 307.703 188.495 307.512M201.828 298.068C202.094 297.891 202.36 297.714 202.627 297.538M216.58 289.044C216.72 288.967 216.86 288.89 217 288.812C217.147 288.731 217.293 288.65 217.44 288.569M232.588 280.517C232.888 280.365 233.189 280.214 233.49 280.062M249.021 272.781C249.33 272.647 249.639 272.514 249.948 272.382M265.959 266.228C266.277 266.12 266.596 266.013 266.915 265.907M283.427 261.276C283.755 261.201 284.084 261.128 284.413 261.056M301.346 258.365C301.681 258.333 302.015 258.302 302.35 258.272M319.487 257.893C319.823 257.909 320.16 257.926 320.497 257.945M337.503 260.099C337.668 260.133 337.834 260.166 338 260.2C338.156 260.258 338.312 260.314 338.469 260.371M354.722 264.182C355.048 264.218 355.373 264.252 355.698 264.283M372.379 263.865C372.704 263.819 373.028 263.77 373.352 263.72M389.506 259.487C389.814 259.375 390.122 259.262 390.43 259.147M405.613 252.148C405.9 251.992 406.187 251.835 406.473 251.677M420.704 242.89C420.976 242.706 421.248 242.52 421.519 242.334M435.007 232.44C435.266 232.24 435.524 232.039 435.782 231.837M448.768 221.291C449.02 221.08 449.271 220.869 449.522 220.658M462.234 209.78C462.482 209.565 462.731 209.35 462.979 209.135M475.627 198.186C475.752 198.079 475.876 197.972 476 197.866C476.127 197.748 476.253 197.631 476.38 197.514M489.603 186.028C489.87 185.812 490.137 185.597 490.404 185.384M504.595 175.129C504.885 174.944 505.174 174.761 505.464 174.579M520.966 166.478C521.285 166.347 521.604 166.219 521.923 166.092M538.818 161.67C539.159 161.629 539.5 161.591 539.841 161.555M557.255 162.469C557.591 162.54 557.927 162.615 558.264 162.693M574.542 169.001C574.695 169.085 574.847 169.168 575 169.253C575.146 169.326 575.292 169.399 575.438 169.471M590.356 176.214C590.652 176.332 590.949 176.449 591.244 176.565M606.847 181.504C607.162 181.576 607.475 181.646 607.788 181.715M624.033 183.311C624.354 183.299 624.674 183.285 624.994 183.268M640.921 179.811C641.218 179.695 641.515 179.575 641.811 179.452M655.902 171.196C656.153 171.005 656.405 170.811 656.656 170.614M668.627 159.478C668.844 159.245 669.06 159.01 669.277 158.774M679.705 146.142C679.803 146.012 679.902 145.881 680 145.75C680.1 145.62 680.201 145.49 680.301 145.36M690.323 131.984C690.517 131.72 690.71 131.457 690.903 131.193M700.753 117.687C700.947 117.423 700.947 117.16 701.332 116.897M711.388 103.547C711.59 103.287 711.793 103.029 711.996 102.771M722.749 89.9761C722.97 89.7336 723.192 89.4923 723.413 89.2522M735.513 77.7471C735.769 77.5395 736.025 77.3338 736.282 77.1302M750.443 68.3426C750.743 68.2085 751.043 68.0772 751.343 67.9487";
 
 const RUNNERS_DB = [
   {
-    name: 'Emma Jensen',
-    bib: '1042',
+    name: "Emma Jensen",
+    bib: "1042",
     distanceKm: 16.3,
-    distanceLabel: '16.3 km',
-    elapsedTime: '01:22:04',
-    avgPace: '5:02 /km',
-    estFinish: '12:32',
-    zone: 'Nørrebro',
-    statusEn: 'Now at NBRO · Nørrebro. Next: Game at 18 km.',
-    statusDk: 'Nu ved NBRO · Nørrebro. Næste: Game ved 18 km.',
+    distanceLabel: "16.3 km",
+    elapsedTime: "01:22:04",
+    avgPace: "5:02 /km",
+    estFinish: "12:32",
+    zone: "Nørrebro",
+    statusEn: "Now at NBRO · Nørrebro. Next: Game at 18 km.",
+    statusDk: "Nu ved NBRO · Nørrebro. Næste: Game ved 18 km.",
     curveX: 344,
     curveY: 257,
   },
   {
-    name: 'Jonas Bekele',
-    bib: '101',
+    name: "Jonas Bekele",
+    bib: "101",
     distanceKm: 42.2,
-    distanceLabel: '42.2 km',
-    elapsedTime: '02:06:41',
-    avgPace: '3:00 /km',
-    estFinish: 'Finished',
-    zone: 'Kalvebod Brygge',
-    statusEn: 'Finished 1st Overall at Kalvebod Brygge (2:06:41).',
-    statusDk: 'I mål som nr. 1 ved Kalvebod Brygge (2:06:41).',
+    distanceLabel: "42.2 km",
+    elapsedTime: "02:06:41",
+    avgPace: "3:00 /km",
+    estFinish: "Finished",
+    zone: "Kalvebod Brygge",
+    statusEn: "Finished 1st Overall at Kalvebod Brygge (2:06:41).",
+    statusDk: "I mål som nr. 1 ved Kalvebod Brygge (2:06:41).",
     curveX: 750,
     curveY: 68,
   },
   {
-    name: 'Mikkel Hansen',
-    bib: '204',
+    name: "Mikkel Hansen",
+    bib: "204",
     distanceKm: 42.2,
-    distanceLabel: '42.2 km',
-    elapsedTime: '02:07:12',
-    avgPace: '3:01 /km',
-    estFinish: 'Finished',
-    zone: 'Kalvebod Brygge',
-    statusEn: 'Finished 2nd Overall at Kalvebod Brygge (2:07:12).',
-    statusDk: 'I mål som nr. 2 ved Kalvebod Brygge (2:07:12).',
+    distanceLabel: "42.2 km",
+    elapsedTime: "02:07:12",
+    avgPace: "3:01 /km",
+    estFinish: "Finished",
+    zone: "Kalvebod Brygge",
+    statusEn: "Finished 2nd Overall at Kalvebod Brygge (2:07:12).",
+    statusDk: "I mål som nr. 2 ved Kalvebod Brygge (2:07:12).",
     curveX: 735,
     curveY: 78,
   },
   {
-    name: 'Samuel Kiptoo',
-    bib: '312',
+    name: "Samuel Kiptoo",
+    bib: "312",
     distanceKm: 42.2,
-    distanceLabel: '42.2 km',
-    elapsedTime: '02:07:48',
-    avgPace: '3:02 /km',
-    estFinish: 'Finished',
-    zone: 'Kalvebod Brygge',
-    statusEn: 'Finished 3rd Overall at Kalvebod Brygge (2:07:48).',
-    statusDk: 'I mål som nr. 3 ved Kalvebod Brygge (2:07:48).',
+    distanceLabel: "42.2 km",
+    elapsedTime: "02:07:48",
+    avgPace: "3:02 /km",
+    estFinish: "Finished",
+    zone: "Kalvebod Brygge",
+    statusEn: "Finished 3rd Overall at Kalvebod Brygge (2:07:48).",
+    statusDk: "I mål som nr. 3 ved Kalvebod Brygge (2:07:48).",
     curveX: 722,
     curveY: 90,
   },
   {
-    name: 'Lars Nygaard',
-    bib: '418',
+    name: "Lars Nygaard",
+    bib: "418",
     distanceKm: 42.2,
-    distanceLabel: '42.2 km',
-    elapsedTime: '02:08:30',
-    avgPace: '3:03 /km',
-    estFinish: 'Finished',
-    zone: 'Kalvebod Brygge',
-    statusEn: 'Finished 4th Overall at Kalvebod Brygge (2:08:30).',
-    statusDk: 'I mål som nr. 4 ved Kalvebod Brygge (2:08:30).',
+    distanceLabel: "42.2 km",
+    elapsedTime: "02:08:30",
+    avgPace: "3:03 /km",
+    estFinish: "Finished",
+    zone: "Kalvebod Brygge",
+    statusEn: "Finished 4th Overall at Kalvebod Brygge (2:08:30).",
+    statusDk: "I mål som nr. 4 ved Kalvebod Brygge (2:08:30).",
     curveX: 711,
     curveY: 103,
   },
   {
-    name: 'Adam Mensah',
-    bib: '509',
+    name: "Adam Mensah",
+    bib: "509",
     distanceKm: 42.2,
-    distanceLabel: '42.2 km',
-    elapsedTime: '02:09:03',
-    avgPace: '3:04 /km',
-    estFinish: 'Finished',
-    zone: 'Kalvebod Brygge',
-    statusEn: 'Finished 5th Overall at Kalvebod Brygge (2:09:03).',
-    statusDk: 'I mål som nr. 5 ved Kalvebod Brygge (2:09:03).',
+    distanceLabel: "42.2 km",
+    elapsedTime: "02:09:03",
+    avgPace: "3:04 /km",
+    estFinish: "Finished",
+    zone: "Kalvebod Brygge",
+    statusEn: "Finished 5th Overall at Kalvebod Brygge (2:09:03).",
+    statusDk: "I mål som nr. 5 ved Kalvebod Brygge (2:09:03).",
     curveX: 700,
     curveY: 117,
   },
   {
-    name: 'Leah',
-    bib: '1980',
+    name: "Leah",
+    bib: "1980",
     distanceKm: 15.0,
-    distanceLabel: '15.0 km',
-    elapsedTime: '01:14:20',
-    avgPace: '4:57 /km',
-    estFinish: '12:29',
-    zone: 'Nørrebro',
-    statusEn: 'Now at Joe & The Juice · Sankt Hans Torv. Next: NBRO at 16.3 km.',
-    statusDk: 'Nu ved Joe & The Juice · Sankt Hans Torv. Næste: NBRO ved 16.3 km.',
+    distanceLabel: "15.0 km",
+    elapsedTime: "01:14:20",
+    avgPace: "4:57 /km",
+    estFinish: "12:29",
+    zone: "Nørrebro",
+    statusEn:
+      "Now at Joe & The Juice · Sankt Hans Torv. Next: NBRO at 16.3 km.",
+    statusDk:
+      "Nu ved Joe & The Juice · Sankt Hans Torv. Næste: NBRO ved 16.3 km.",
     curveX: 301,
     curveY: 258,
   },
   {
-    name: 'Eimear',
-    bib: '3817',
+    name: "Eimear",
+    bib: "3817",
     distanceKm: 18.0,
-    distanceLabel: '18.0 km',
-    elapsedTime: '01:29:12',
-    avgPace: '4:57 /km',
-    estFinish: '12:29',
-    zone: 'Nørrebro',
-    statusEn: 'Now at GAME · Den Røde Plads. Next: Frederiksberg at 24 km.',
-    statusDk: 'Nu ved GAME · Den Røde Plads. Næste: Frederiksberg ved 24 km.',
+    distanceLabel: "18.0 km",
+    elapsedTime: "01:29:12",
+    avgPace: "4:57 /km",
+    estFinish: "12:29",
+    zone: "Nørrebro",
+    statusEn: "Now at GAME · Den Røde Plads. Next: Frederiksberg at 24 km.",
+    statusDk: "Nu ved GAME · Den Røde Plads. Næste: Frederiksberg ved 24 km.",
     curveX: 405,
     curveY: 252,
   },
   {
-    name: 'Birgit Holm',
-    bib: '8801',
+    name: "Birgit Holm",
+    bib: "8801",
     distanceKm: 12.0,
-    distanceLabel: '12.0 km',
-    elapsedTime: '01:40:10',
-    avgPace: '8:20 /km',
-    estFinish: '14:52',
-    zone: 'Østerbro',
-    statusEn: 'Passing Østerbro (12 km). Next: Joe & The Juice at 15 km.',
-    statusDk: 'Passerer Østerbro (12 km). Næste: Joe & The Juice ved 15 km.',
+    distanceLabel: "12.0 km",
+    elapsedTime: "01:40:10",
+    avgPace: "8:20 /km",
+    estFinish: "14:52",
+    zone: "Østerbro",
+    statusEn: "Passing Østerbro (12 km). Next: Joe & The Juice at 15 km.",
+    statusDk: "Passerer Østerbro (12 km). Næste: Joe & The Juice ved 15 km.",
     curveX: 232,
     curveY: 280,
   },
   {
-    name: 'Peter Dalsgaard',
-    bib: '8942',
+    name: "Peter Dalsgaard",
+    bib: "8942",
     distanceKm: 11.4,
-    distanceLabel: '11.4 km',
-    elapsedTime: '01:36:15',
-    avgPace: '8:26 /km',
-    estFinish: '14:54',
-    zone: 'Østerbro',
-    statusEn: 'Approaching Østerbro 12 km checkpoint.',
-    statusDk: 'Nærmer sig Østerbro 12 km mellemtid.',
+    distanceLabel: "11.4 km",
+    elapsedTime: "01:36:15",
+    avgPace: "8:26 /km",
+    estFinish: "14:54",
+    zone: "Østerbro",
+    statusEn: "Approaching Østerbro 12 km checkpoint.",
+    statusDk: "Nærmer sig Østerbro 12 km mellemtid.",
     curveX: 217,
     curveY: 288,
   },
   {
-    name: 'Anne Sørensen',
-    bib: '9104',
+    name: "Anne Sørensen",
+    bib: "9104",
     distanceKm: 10.8,
-    distanceLabel: '10.8 km',
-    elapsedTime: '01:32:00',
-    avgPace: '8:31 /km',
-    estFinish: '14:57',
-    zone: 'Østerbro',
-    statusEn: 'Running along Østerbrogade towards Fælledparken.',
-    statusDk: 'Løber langs Østerbrogade mod Fælledparken.',
+    distanceLabel: "10.8 km",
+    elapsedTime: "01:32:00",
+    avgPace: "8:31 /km",
+    estFinish: "14:57",
+    zone: "Østerbro",
+    statusEn: "Running along Østerbrogade towards Fælledparken.",
+    statusDk: "Løber langs Østerbrogade mod Fælledparken.",
     curveX: 202,
     curveY: 298,
   },
   {
-    name: 'Tomas Eriksen',
-    bib: '9315',
+    name: "Tomas Eriksen",
+    bib: "9315",
     distanceKm: 10.2,
-    distanceLabel: '10.2 km',
-    elapsedTime: '01:27:10',
-    avgPace: '8:33 /km',
-    estFinish: '14:58',
-    zone: 'Østerbro',
-    statusEn: 'Passing Trianglen cheering hub in Østerbro.',
-    statusDk: 'Passerer Trianglen heppezone på Østerbro.',
+    distanceLabel: "10.2 km",
+    elapsedTime: "01:27:10",
+    avgPace: "8:33 /km",
+    estFinish: "14:58",
+    zone: "Østerbro",
+    statusEn: "Passing Trianglen cheering hub in Østerbro.",
+    statusDk: "Passerer Trianglen heppezone på Østerbro.",
     curveX: 188,
     curveY: 308,
   },
   {
-    name: 'Karen Lund',
-    bib: '9540',
+    name: "Karen Lund",
+    bib: "9540",
     distanceKm: 9.8,
-    distanceLabel: '9.8 km',
-    elapsedTime: '01:24:05',
-    avgPace: '8:34 /km',
-    estFinish: '14:59',
-    zone: 'Østerbro',
-    statusEn: 'Steady pace through Indre Østerbro.',
-    statusDk: 'Stabilt tempo gennem Indre Østerbro.',
+    distanceLabel: "9.8 km",
+    elapsedTime: "01:24:05",
+    avgPace: "8:34 /km",
+    estFinish: "14:59",
+    zone: "Østerbro",
+    statusEn: "Steady pace through Indre Østerbro.",
+    statusDk: "Stabilt tempo gennem Indre Østerbro.",
     curveX: 174,
     curveY: 318,
   },
 ];
 
 const KEYBOARD_ROWS = [
-  ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-  ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-  ['z', 'x', 'c', 'v', 'b', 'n', 'm'],
+  ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
+  ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
+  ["z", "x", "c", "v", "b", "n", "m"],
 ];
 
 /**
@@ -206,14 +208,14 @@ const KEYBOARD_ROWS = [
  */
 export default function TrackRunnerPage({
   onNavigate,
-  initialQuery = '',
-  lang = 'EN',
+  initialQuery = "",
+  lang = "EN",
   onToggleLang,
 }) {
   const [query, setQuery] = useState(initialQuery);
-  const [searchState, setSearchState] = useState('idle'); // 'idle' | 'typing' | 'found' | 'not_found'
+  const [searchState, setSearchState] = useState("idle"); // 'idle' | 'typing' | 'found' | 'not_found'
   const [matchedRunner, setMatchedRunner] = useState(null);
-  const [lastSearchedQuery, setLastSearchedQuery] = useState('');
+  const [lastSearchedQuery, setLastSearchedQuery] = useState("");
   const [showVirtualKeyboard, setShowVirtualKeyboard] = useState(false);
 
   const performSearch = (rawSearch) => {
@@ -221,28 +223,28 @@ export default function TrackRunnerPage({
     setShowVirtualKeyboard(false);
 
     if (!q) {
-      setSearchState('idle');
+      setSearchState("idle");
       setMatchedRunner(null);
       return;
     }
 
     setLastSearchedQuery(q);
-    const normalized = q.toLowerCase().replace(/^#/, '');
+    const normalized = q.toLowerCase().replace(/^#/, "");
 
     const found = RUNNERS_DB.find(
       (r) =>
         r.bib.toLowerCase() === normalized ||
         r.name.toLowerCase() === normalized ||
-        r.name.toLowerCase().includes(normalized)
+        r.name.toLowerCase().includes(normalized),
     );
 
     if (found) {
       setMatchedRunner(found);
       setQuery(found.name);
-      setSearchState('found');
+      setSearchState("found");
     } else {
       setMatchedRunner(null);
-      setSearchState('not_found');
+      setSearchState("not_found");
     }
   };
 
@@ -253,22 +255,22 @@ export default function TrackRunnerPage({
   }, [initialQuery]);
 
   const handleSelectTab = (tab) => {
-    if (tab === 'track') {
+    if (tab === "track") {
       setShowVirtualKeyboard(false);
       return;
     }
-    if (tab === 'updates') onNavigate('updates');
-    if (tab === 'explore') onNavigate('zones');
+    if (tab === "updates") onNavigate("updates");
+    if (tab === "explore") onNavigate("zones");
   };
 
   const handleVirtualKey = (key) => {
-    if (key === 'BACKSPACE') {
+    if (key === "BACKSPACE") {
       setQuery((prev) => prev.slice(0, -1));
-    } else if (key === 'SPACE') {
-      setQuery((prev) => prev + ' ');
+    } else if (key === "SPACE") {
+      setQuery((prev) => prev + " ");
     } else {
       setQuery((prev) => {
-        const shouldCap = prev.length === 0 || prev.endsWith(' ');
+        const shouldCap = prev.length === 0 || prev.endsWith(" ");
         return prev + (shouldCap ? key.toUpperCase() : key);
       });
     }
@@ -285,7 +287,7 @@ export default function TrackRunnerPage({
   };
 
   const progressPct =
-    searchState === 'found' && matchedRunner
+    searchState === "found" && matchedRunner
       ? getProgressPercent(matchedRunner.distanceKm)
       : 45;
 
@@ -308,7 +310,7 @@ export default function TrackRunnerPage({
             fill="#767676"
             className="font-montserrat font-medium text-[15px] tracking-[0.34em] uppercase"
           >
-            {lang === 'EN' ? 'TRACK RUNNER' : 'FIND LØBER'}
+            {lang === "EN" ? "TRACK RUNNER" : "FIND LØBER"}
           </text>
 
           {/* Top-Right Label: FINISH */}
@@ -318,7 +320,7 @@ export default function TrackRunnerPage({
             fill="#767676"
             className="font-montserrat font-medium text-[13px] tracking-[0.22em] uppercase"
           >
-            {lang === 'EN' ? 'FINISH' : 'MÅL'}
+            {lang === "EN" ? "FINISH" : "MÅL"}
           </text>
 
           {/* Bottom-Left Label: START */}
@@ -340,7 +342,7 @@ export default function TrackRunnerPage({
           />
 
           {/* Marker on the Course Curve */}
-          {searchState === 'found' && matchedRunner && (
+          {searchState === "found" && matchedRunner && (
             <g>
               <circle
                 cx={matchedRunner.curveX}
@@ -391,7 +393,7 @@ export default function TrackRunnerPage({
             </g>
           )}
 
-          {(searchState === 'idle' || searchState === 'typing') && (
+          {(searchState === "idle" || searchState === "typing") && (
             <g>
               <circle
                 cx="320"
@@ -415,9 +417,7 @@ export default function TrackRunnerPage({
                 fill="#080808"
                 className="font-montserrat font-normal text-[16px]"
               >
-                {lang === 'EN'
-                  ? 'Runner appears here'
-                  : 'Løberen vises her'}
+                {lang === "EN" ? "Runner appears here" : "Løberen vises her"}
               </text>
             </g>
           )}
@@ -429,7 +429,7 @@ export default function TrackRunnerPage({
         <div>
           {/* Heading: WHERE IS MY RUNNER? */}
           <h1 className="font-montserrat font-black italic text-2xl sm:text-3xl md:text-[38px] text-[#080808] tracking-tight uppercase mb-2.5 sm:mb-3.5">
-            {lang === 'EN' ? 'WHERE IS MY RUNNER?' : 'HVOR ER MIN LØBER?'}
+            {lang === "EN" ? "WHERE IS MY RUNNER?" : "HVOR ER MIN LØBER?"}
           </h1>
 
           {/* Search Input + Slanted LOCATE Button */}
@@ -445,17 +445,17 @@ export default function TrackRunnerPage({
                 type="text"
                 value={query}
                 onFocus={() => {
-                  setSearchState('typing');
+                  setSearchState("typing");
                   setShowVirtualKeyboard(true);
                 }}
                 onChange={(e) => {
                   setQuery(e.target.value);
-                  if (searchState !== 'typing') setSearchState('typing');
+                  if (searchState !== "typing") setSearchState("typing");
                 }}
                 placeholder={
-                  lang === 'EN'
-                    ? 'Enter Bib # or Name (e.g. 1042)'
-                    : 'Indtast startnr. eller navn (fx 1042)'
+                  lang === "EN"
+                    ? "Enter Bib # or Name (e.g. 1042)"
+                    : "Indtast startnr. eller navn (fx 1042)"
                 }
                 className="w-full h-11 sm:h-14 px-3.5 sm:px-5 bg-pureWhite border-2 border-[#FFE500] text-sm sm:text-base md:text-[18px] text-[#080808] placeholder:text-[#767676] font-montserrat focus:outline-none"
               />
@@ -463,8 +463,8 @@ export default function TrackRunnerPage({
                 <button
                   type="button"
                   onClick={() => {
-                    setQuery('');
-                    setSearchState('idle');
+                    setQuery("");
+                    setSearchState("idle");
                     setMatchedRunner(null);
                   }}
                   aria-label="Clear search"
@@ -480,23 +480,23 @@ export default function TrackRunnerPage({
               className="bg-[#FFE500] hover:bg-primaryYellow text-[#080808] font-montserrat font-black italic text-base sm:text-xl md:text-[24px] px-6 sm:px-9 -skew-x-[15deg] -ml-2 shrink-0 flex items-center justify-center transition-colors"
             >
               <span className="skew-x-[15deg] tracking-wide uppercase">
-                {lang === 'EN' ? 'LOCATE' : 'FIND'}
+                {lang === "EN" ? "LOCATE" : "FIND"}
               </span>
             </button>
           </form>
 
           {/* Quick Demo Runner Chips (Helpful for testing all states quickly) */}
-          {searchState !== 'not_found' && !showVirtualKeyboard && (
+          {searchState !== "not_found" && !showVirtualKeyboard && (
             <div className="flex flex-wrap items-center gap-1.5 mb-2 text-[10px] sm:text-[11px]">
               <span className="text-[#767676] font-medium mr-1">
-                {lang === 'EN' ? 'Try:' : 'Prøv:'}
+                {lang === "EN" ? "Try:" : "Prøv:"}
               </span>
               {[
-                { label: 'Emma Jensen (#1042)', q: 'Emma Jensen' },
-                { label: 'Leah (#1980)', q: '1980' },
-                { label: 'Eimear (#3817)', q: '3817' },
-                { label: 'Jonas Bekele (#101)', q: 'Jonas Bekele' },
-                { label: 'No Match Demo', q: 'Emma Jenseb' },
+                { label: "Emma Jensen (#1042)", q: "Emma Jensen" },
+                { label: "Leah (#1980)", q: "1980" },
+                { label: "Eimear (#3817)", q: "3817" },
+                { label: "Jonas Bekele (#101)", q: "Jonas Bekele" },
+                { label: "No Match Demo", q: "Emma Jenseb" },
               ].map((chip) => (
                 <button
                   key={chip.label}
@@ -514,7 +514,7 @@ export default function TrackRunnerPage({
           )}
 
           {/* STATE 3: RUNNER FOUND (`Find your runner — runner found.svg`) */}
-          {searchState === 'found' && matchedRunner && (
+          {searchState === "found" && matchedRunner && (
             <div className="mt-1 mb-3 animate-fadeIn">
               {/* Runner Name + Bib + LIVE indicator */}
               <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2.5">
@@ -529,9 +529,9 @@ export default function TrackRunnerPage({
                 <span className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs text-[#767676]">
                   <span className="w-2 h-2 rounded-full bg-[#FFE500] inline-block" />
                   <span>
-                    {lang === 'EN'
-                      ? 'LIVE · Updated 8 sec ago'
-                      : 'LIVE · Opdateret for 8 sek. siden'}
+                    {lang === "EN"
+                      ? "LIVE · Updated 8 sec ago"
+                      : "LIVE · Opdateret for 8 sek. siden"}
                   </span>
                 </span>
               </div>
@@ -540,7 +540,7 @@ export default function TrackRunnerPage({
               <div className="grid grid-cols-4 gap-2 sm:gap-4 pb-3 border-b border-[#C6C6C4]">
                 <div>
                   <p className="font-montserrat text-[9px] sm:text-[11px] tracking-[0.16em] text-[#767676] uppercase">
-                    {lang === 'EN' ? 'DISTANCE' : 'DISTANCE'}
+                    {lang === "EN" ? "DISTANCE" : "DISTANCE"}
                   </p>
                   <p className="font-montserrat font-black italic text-base sm:text-xl md:text-[24px] text-[#080808] mt-0.5">
                     {matchedRunner.distanceLabel}
@@ -548,7 +548,7 @@ export default function TrackRunnerPage({
                 </div>
                 <div>
                   <p className="font-montserrat text-[9px] sm:text-[11px] tracking-[0.16em] text-[#767676] uppercase">
-                    {lang === 'EN' ? 'ELAPSED TIME' : 'TID'}
+                    {lang === "EN" ? "ELAPSED TIME" : "TID"}
                   </p>
                   <p className="font-montserrat font-black italic text-base sm:text-xl md:text-[24px] text-[#080808] mt-0.5">
                     {matchedRunner.elapsedTime}
@@ -556,7 +556,7 @@ export default function TrackRunnerPage({
                 </div>
                 <div>
                   <p className="font-montserrat text-[9px] sm:text-[11px] tracking-[0.16em] text-[#767676] uppercase">
-                    {lang === 'EN' ? 'AVG. PACE' : 'GNS. TEMPO'}
+                    {lang === "EN" ? "AVG. PACE" : "GNS. TEMPO"}
                   </p>
                   <p className="font-montserrat font-black italic text-base sm:text-xl md:text-[24px] text-[#080808] mt-0.5">
                     {matchedRunner.avgPace}
@@ -564,7 +564,7 @@ export default function TrackRunnerPage({
                 </div>
                 <div>
                   <p className="font-montserrat text-[9px] sm:text-[11px] tracking-[0.16em] text-[#767676] uppercase">
-                    {lang === 'EN' ? 'EST. FINISH' : 'FORV. MÅL'}
+                    {lang === "EN" ? "EST. FINISH" : "FORV. MÅL"}
                   </p>
                   <p className="font-montserrat font-black italic text-base sm:text-xl md:text-[24px] text-[#080808] mt-0.5">
                     {matchedRunner.estFinish}
@@ -574,7 +574,7 @@ export default function TrackRunnerPage({
 
               {/* Current Location Status Line */}
               <p className="font-montserrat text-xs sm:text-sm text-[#080808] mt-2.5">
-                {lang === 'EN'
+                {lang === "EN"
                   ? matchedRunner.statusEn
                   : matchedRunner.statusDk}
               </p>
@@ -582,7 +582,7 @@ export default function TrackRunnerPage({
           )}
 
           {/* STATE 4: NO RUNNER FOUND (`Find your runner — no runner found.svg`) */}
-          {searchState === 'not_found' && (
+          {searchState === "not_found" && (
             <div className="mt-3 sm:mt-4 flex items-start gap-4 animate-fadeIn">
               {/* Grey Square with Magnifying Glass + X */}
               <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#EAE9E5] flex items-center justify-center shrink-0">
@@ -616,49 +616,49 @@ export default function TrackRunnerPage({
 
               <div className="flex-1">
                 <h2 className="font-montserrat font-black italic text-lg sm:text-2xl text-[#080808]">
-                  {lang === 'EN' ? 'No runner found' : 'Ingen løber fundet'}
+                  {lang === "EN" ? "No runner found" : "Ingen løber fundet"}
                 </h2>
                 <p className="font-montserrat text-xs sm:text-sm text-[#767676] mt-1 max-w-lg leading-relaxed">
-                  {lang === 'EN'
+                  {lang === "EN"
                     ? `We couldn’t find a runner matching “${
-                        lastSearchedQuery || 'Emma Jensen'
+                        lastSearchedQuery || "Emma Jensen"
                       }”. Check the spelling or try their bib number.`
                     : `Vi kunne ikke finde en løber, der matcher “${
-                        lastSearchedQuery || 'Emma Jensen'
+                        lastSearchedQuery || "Emma Jensen"
                       }”. Tjek stavningen eller prøv startnummeret.`}
                 </p>
 
                 <button
                   type="button"
                   onClick={() => {
-                    setQuery('');
-                    setSearchState('typing');
+                    setQuery("");
+                    setSearchState("typing");
                     setShowVirtualKeyboard(true);
                   }}
                   className="mt-3 bg-[#FFE500] hover:bg-primaryYellow -skew-x-[15deg] px-7 py-2.5 font-montserrat font-black italic text-sm sm:text-base text-[#080808] uppercase inline-block"
                 >
                   <span className="skew-x-[15deg] inline-block">
-                    {lang === 'EN' ? 'TRY AGAIN' : 'PRØV IGEN'}
+                    {lang === "EN" ? "TRY AGAIN" : "PRØV IGEN"}
                   </span>
                 </button>
 
                 <p className="font-montserrat text-[11px] sm:text-xs text-[#767676] mt-2.5">
-                  {lang === 'EN'
-                    ? 'Search by full name or bib number to track your runner.'
-                    : 'Søg på fulde navn eller startnummer for at følge din løber.'}
+                  {lang === "EN"
+                    ? "Search by full name or bib number to track your runner."
+                    : "Søg på fulde navn eller startnummer for at følge din løber."}
                 </p>
               </div>
             </div>
           )}
 
           {/* COURSE PROGRESS Bar (Shown in idle, typing, and found states) */}
-          {searchState !== 'not_found' && (
+          {searchState !== "not_found" && (
             <div className="mt-2 sm:mt-3">
               <div className="flex items-center justify-between text-[10px] sm:text-xs mb-2">
                 <span className="font-montserrat font-medium tracking-[0.22em] text-[#767676] uppercase">
-                  {lang === 'EN' ? 'COURSE PROGRESS' : 'RUTESTATUS'}
+                  {lang === "EN" ? "COURSE PROGRESS" : "RUTESTATUS"}
                 </span>
-                {searchState === 'found' && matchedRunner && (
+                {searchState === "found" && matchedRunner && (
                   <span className="font-montserrat font-bold text-[#080808]">
                     {matchedRunner.distanceKm} / 42.2 km
                   </span>
@@ -685,7 +685,7 @@ export default function TrackRunnerPage({
                 ))}
 
                 {/* Active Runner Yellow Dot on Progress Bar when Found */}
-                {searchState === 'found' && matchedRunner && (
+                {searchState === "found" && matchedRunner && (
                   <span
                     style={{ left: `${progressPct}%` }}
                     className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-[#FFE500] border-[2.5px] border-[#080808] shadow"
@@ -713,16 +713,16 @@ export default function TrackRunnerPage({
           {/* Top Keyboard Accessory Bar */}
           <div className="flex items-center justify-between px-2 pb-2 text-xs sm:text-sm">
             <span className="text-[#767676] font-montserrat">
-              {lang === 'EN'
+              {lang === "EN"
                 ? "Enter a runner's name or bib number"
-                : 'Indtast løbers navn eller startnummer'}
+                : "Indtast løbers navn eller startnummer"}
             </span>
             <button
               type="button"
               onClick={() => setShowVirtualKeyboard(false)}
               className="font-montserrat font-bold text-[#080808] px-2 py-0.5 hover:underline"
             >
-              {lang === 'EN' ? 'Done' : 'Færdig'}
+              {lang === "EN" ? "Done" : "Færdig"}
             </button>
           </div>
 
@@ -778,7 +778,7 @@ export default function TrackRunnerPage({
             </div>
             <button
               type="button"
-              onClick={() => handleVirtualKey('BACKSPACE')}
+              onClick={() => handleVirtualKey("BACKSPACE")}
               className="w-11 sm:w-16 h-9 sm:h-11 bg-[#B8BDC4] rounded-md shadow-sm flex items-center justify-center text-[#080808] font-bold"
               aria-label="Backspace"
             >
@@ -790,14 +790,14 @@ export default function TrackRunnerPage({
           <div className="flex items-center gap-1 sm:gap-1.5">
             <button
               type="button"
-              onClick={() => handleVirtualKey('1')}
+              onClick={() => handleVirtualKey("1")}
               className="w-16 sm:w-24 h-9 sm:h-11 bg-[#B8BDC4] rounded-md shadow-sm font-montserrat text-xs sm:text-sm text-[#080808] flex items-center justify-center"
             >
               .?123
             </button>
             <button
               type="button"
-              onClick={() => onToggleLang(lang === 'EN' ? 'DK' : 'EN')}
+              onClick={() => onToggleLang(lang === "EN" ? "DK" : "EN")}
               className="w-10 sm:w-14 h-9 sm:h-11 bg-[#B8BDC4] rounded-md shadow-sm flex items-center justify-center text-sm"
               title="Switch language"
             >
@@ -805,7 +805,7 @@ export default function TrackRunnerPage({
             </button>
             <button
               type="button"
-              onClick={() => handleVirtualKey('SPACE')}
+              onClick={() => handleVirtualKey("SPACE")}
               className="flex-1 h-9 sm:h-11 bg-pureWhite rounded-md shadow-sm font-montserrat text-xs sm:text-sm text-[#080808] flex items-center justify-center"
             >
               space
@@ -815,29 +815,29 @@ export default function TrackRunnerPage({
               onClick={() => performSearch(query)}
               className="w-24 sm:w-36 h-9 sm:h-11 bg-[#FFE500] hover:bg-primaryYellow rounded-md shadow-sm font-montserrat font-medium text-xs sm:text-sm text-[#080808] flex items-center justify-center"
             >
-              {lang === 'EN' ? 'Search' : 'Søg'}
+              {lang === "EN" ? "Search" : "Søg"}
             </button>
           </div>
         </div>
       ) : (
         /* Bottom Area: Back Chevron + Three Slanted Yellow Navigation Buttons + Footer */
-        <div className="relative z-20 w-full bg-pureWhite pt-1 flex flex-col shrink-0">
-          <BottomNav
-            activeTab="track"
-            onSelectTab={handleSelectTab}
-            onBack={() => onNavigate('home')}
-            updatesLabel={lang === 'EN' ? 'Updates' : 'Opdateringer'}
-            lang={lang}
-          />
+        <div className="relative mt-2 z-20 w-full bg-pureWhite pt-2 sm:pt-3 flex flex-col shrink-0">
+          <div className="mb-6 pb-6 pt-2">
+            <BottomNav
+              activeTab="track"
+              onSelectTab={handleSelectTab}
+              onBack={() => onNavigate("home")}
+              updatesLabel={lang === "EN" ? "Updates" : "Opdateringer"}
+              lang={lang}
+            />
+          </div>
           <WavyFooter
             lang={lang}
             onToggleLang={onToggleLang}
             variant="flat"
-            hideQrIcon
           />
         </div>
       )}
     </div>
   );
 }
-

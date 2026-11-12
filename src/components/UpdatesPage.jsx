@@ -1,44 +1,44 @@
-import React, { useState } from 'react';
-import BottomNav from './BottomNav';
-import WavyFooter from './WavyFooter';
+import React, { useState } from "react";
+import BottomNav from "./BottomNav";
+import WavyFooter from "./WavyFooter";
 
 const SCHEDULE_ITEMS = [
   {
-    time: '08:30',
-    en: 'Elite start · Rådhuspladsen',
-    dk: 'Elitestart · Rådhuspladsen',
+    time: "08:30",
+    en: "Elite start · Rådhuspladsen",
+    dk: "Elitestart · Rådhuspladsen",
   },
   {
-    time: '09:00',
-    en: 'Mass start · Wave 1–6',
-    dk: 'Samlet start · Bølge 1–6',
+    time: "09:00",
+    en: "Mass start · Wave 1–6",
+    dk: "Samlet start · Bølge 1–6",
   },
   {
-    time: '12:00',
-    en: 'First finishers expected',
-    dk: 'Første løbere i mål forventes',
+    time: "12:00",
+    en: "First finishers expected",
+    dk: "Første løbere i mål forventes",
   },
   {
-    time: '15:30',
-    en: 'Course closes',
-    dk: 'Ruten lukker',
+    time: "15:30",
+    en: "Course closes",
+    dk: "Ruten lukker",
   },
 ];
 
 const TOP_5_FIRST = [
-  { rank: 1, name: 'Jonas Bekele', time: '2:06:41', bib: '101' },
-  { rank: 2, name: 'Mikkel Hansen', time: '2:07:12', bib: '204' },
-  { rank: 3, name: 'Samuel Kiptoo', time: '2:07:48', bib: '312' },
-  { rank: 4, name: 'Lars Nygaard', time: '2:08:30', bib: '418' },
-  { rank: 5, name: 'Adam Mensah', time: '2:09:03', bib: '509' },
+  { rank: 1, name: "Jonas Bekele", time: "2:06:41", bib: "101" },
+  { rank: 2, name: "Mikkel Hansen", time: "2:07:12", bib: "204" },
+  { rank: 3, name: "Samuel Kiptoo", time: "2:07:48", bib: "312" },
+  { rank: 4, name: "Lars Nygaard", time: "2:08:30", bib: "418" },
+  { rank: 5, name: "Adam Mensah", time: "2:09:03", bib: "509" },
 ];
 
 const LAST_5 = [
-  { rank: 1, name: 'Birgit Holm', time: '5:52:10', bib: '8801' },
-  { rank: 2, name: 'Peter Dalsgaard', time: '5:54:37', bib: '8942' },
-  { rank: 3, name: 'Anne Sørensen', time: '5:57:02', bib: '9104' },
-  { rank: 4, name: 'Tomas Eriksen', time: '5:58:44', bib: '9315' },
-  { rank: 5, name: 'Karen Lund', time: '5:59:51', bib: '9540' },
+  { rank: 1, name: "Birgit Holm", time: "5:52:10", bib: "8801" },
+  { rank: 2, name: "Peter Dalsgaard", time: "5:54:37", bib: "8942" },
+  { rank: 3, name: "Anne Sørensen", time: "5:57:02", bib: "9104" },
+  { rank: 4, name: "Tomas Eriksen", time: "5:58:44", bib: "9315" },
+  { rank: 5, name: "Karen Lund", time: "5:59:51", bib: "9540" },
 ];
 
 /**
@@ -47,18 +47,18 @@ const LAST_5 = [
 export default function UpdatesPage({
   onNavigate,
   onTrackRunner,
-  lang = 'EN',
+  lang = "EN",
   onToggleLang,
 }) {
   const [activeScheduleIdx, setActiveScheduleIdx] = useState(1); // 09:00 active by default
   const [subscribed, setSubscribed] = useState(false);
-  const [emailInput, setEmailInput] = useState('');
+  const [emailInput, setEmailInput] = useState("");
   const [showSubscribeInput, setShowSubscribeInput] = useState(false);
 
   const handleSelectTab = (tab) => {
-    if (tab === 'updates') return;
-    if (tab === 'explore') onNavigate('zones');
-    if (tab === 'track') onNavigate('track');
+    if (tab === "updates") return;
+    if (tab === "explore") onNavigate("zones");
+    if (tab === "track") onNavigate("track");
   };
 
   const handleSubscribeSubmit = (e) => {
@@ -76,27 +76,27 @@ export default function UpdatesPage({
         {/* Top Meta Row: UPDATES + LIVE indicator */}
         <div className="flex items-center justify-between text-[10px] sm:text-xs text-[#767676] mb-1">
           <span className="font-montserrat font-semibold tracking-[0.28em] uppercase">
-            {lang === 'EN' ? 'UPDATES' : 'OPDATERINGER'}
+            {lang === "EN" ? "UPDATES" : "OPDATERINGER"}
           </span>
           <span className="inline-flex items-center gap-2 font-medium">
             <span className="w-2.5 h-2.5 rounded-full bg-[#FFE500] inline-block animate-pulse" />
             <span>
-              {lang === 'EN'
-                ? 'LIVE · Updated 8 sec ago'
-                : 'LIVE · Opdateret for 8 sek. siden'}
+              {lang === "EN"
+                ? "LIVE · Updated 8 sec ago"
+                : "LIVE · Opdateret for 8 sek. siden"}
             </span>
           </span>
         </div>
 
         {/* Main Heading */}
         <h1 className="font-montserrat font-black italic text-2xl sm:text-4xl md:text-[42px] leading-tight tracking-tight text-[#080808] uppercase mb-3 sm:mb-4">
-          {lang === 'EN' ? 'RACE DAY UPDATES' : 'LØBSDAG OPDATERINGER'}
+          {lang === "EN" ? "RACE DAY UPDATES" : "LØBSDAG OPDATERINGER"}
         </h1>
 
         {/* SCHEDULE Timeline */}
         <section className="mb-4 sm:mb-5">
           <h2 className="font-montserrat font-semibold text-[10px] sm:text-xs tracking-[0.24em] text-[#767676] uppercase mb-2">
-            {lang === 'EN' ? 'SCHEDULE' : 'TIDSPLAN'}
+            {lang === "EN" ? "SCHEDULE" : "TIDSPLAN"}
           </h2>
           <div className="relative pl-1">
             {/* Vertical Line connecting the 4 circles */}
@@ -116,15 +116,15 @@ export default function UpdatesPage({
                     <span
                       className={`relative z-10 w-3.5 h-3.5 rounded-full border-[1.5px] border-[#080808] transition-colors ${
                         isActive
-                          ? 'bg-[#FFE500] ring-2 ring-[#FFE500]/40'
-                          : 'bg-[#EBEAE6] group-hover:bg-[#FFE500]/50'
+                          ? "bg-[#FFE500] ring-2 ring-[#FFE500]/40"
+                          : "bg-[#EBEAE6] group-hover:bg-[#FFE500]/50"
                       }`}
                     />
                     <span className="font-montserrat font-bold italic text-xs sm:text-sm md:text-[15px] w-12 sm:w-14 text-[#080808]">
                       {item.time}
                     </span>
                     <span className="font-montserrat text-xs sm:text-sm md:text-[14px] text-[#1E1E1E]">
-                      {lang === 'EN' ? item.en : item.dk}
+                      {lang === "EN" ? item.en : item.dk}
                     </span>
                   </li>
                 );
@@ -139,7 +139,7 @@ export default function UpdatesPage({
           <div>
             <div className="inline-block bg-[#FFE500] -skew-x-[14deg] px-4 py-1 mb-2 min-w-[160px] sm:min-w-[185px]">
               <h3 className="skew-x-[14deg] font-montserrat font-extrabold italic text-xs sm:text-sm md:text-[16px] text-[#080808] uppercase tracking-wide">
-                {lang === 'EN' ? 'TOP 5 FIRST' : 'TOP 5 FØRSTE'}
+                {lang === "EN" ? "TOP 5 FIRST" : "TOP 5 FØRSTE"}
               </h3>
             </div>
             <ul className="divide-y divide-[#D6D5D0] border-b border-[#D6D5D0]">
@@ -147,10 +147,12 @@ export default function UpdatesPage({
                 <li
                   key={runner.rank}
                   onClick={() =>
-                    onTrackRunner ? onTrackRunner(runner.name) : onNavigate('track')
+                    onTrackRunner
+                      ? onTrackRunner(runner.name)
+                      : onNavigate("track")
                   }
                   title={
-                    lang === 'EN'
+                    lang === "EN"
                       ? `Track ${runner.name}`
                       : `Følg ${runner.name}`
                   }
@@ -176,7 +178,7 @@ export default function UpdatesPage({
           <div>
             <div className="inline-block bg-[#FFE500] -skew-x-[14deg] px-4 py-1 mb-2 min-w-[160px] sm:min-w-[185px]">
               <h3 className="skew-x-[14deg] font-montserrat font-extrabold italic text-xs sm:text-sm md:text-[16px] text-[#080808] uppercase tracking-wide">
-                {lang === 'EN' ? 'LAST 5' : 'SIDSTE 5'}
+                {lang === "EN" ? "LAST 5" : "SIDSTE 5"}
               </h3>
             </div>
             <ul className="divide-y divide-[#D6D5D0] border-b border-[#D6D5D0]">
@@ -184,10 +186,12 @@ export default function UpdatesPage({
                 <li
                   key={runner.rank}
                   onClick={() =>
-                    onTrackRunner ? onTrackRunner(runner.name) : onNavigate('track')
+                    onTrackRunner
+                      ? onTrackRunner(runner.name)
+                      : onNavigate("track")
                   }
                   title={
-                    lang === 'EN'
+                    lang === "EN"
                       ? `Track ${runner.name}`
                       : `Følg ${runner.name}`
                   }
@@ -223,20 +227,20 @@ export default function UpdatesPage({
 
             <div className="skew-x-[5deg] flex-1 min-w-0">
               <h3 className="font-montserrat font-extrabold italic text-base sm:text-xl md:text-[22px] text-[#080808] uppercase tracking-tight">
-                {lang === 'EN' ? 'STAY IN THE LOOP' : 'HOLD DIG OPDATERET'}
+                {lang === "EN" ? "STAY IN THE LOOP" : "HOLD DIG OPDATERET"}
               </h3>
               <p className="font-montserrat text-[11px] sm:text-xs md:text-[13px] text-[#080808] leading-snug mt-1 max-w-md">
-                {lang === 'EN'
-                  ? 'Scan the QR code to get live race updates, results and highlights in the Copenhagen Marathon newsletter.'
-                  : 'Scan QR-koden for at få live løbsopdateringer, resultater og højdepunkter i Copenhagen Marathon-nyhedsbrevet.'}
+                {lang === "EN"
+                  ? "Scan the QR code to get live race updates, results and highlights in the Copenhagen Marathon newsletter."
+                  : "Scan QR-koden for at få live løbsopdateringer, resultater og højdepunkter i Copenhagen Marathon-nyhedsbrevet."}
               </p>
 
               {subscribed ? (
                 <p className="mt-2 font-montserrat font-bold italic text-xs sm:text-sm text-[#080808]">
-                  ✓{' '}
-                  {lang === 'EN'
-                    ? 'Subscribed to live updates!'
-                    : 'Tilmeldt live opdateringer!'}
+                  ✓{" "}
+                  {lang === "EN"
+                    ? "Subscribed to live updates!"
+                    : "Tilmeldt live opdateringer!"}
                 </p>
               ) : showSubscribeInput ? (
                 <form
@@ -249,7 +253,7 @@ export default function UpdatesPage({
                     value={emailInput}
                     onChange={(e) => setEmailInput(e.target.value)}
                     placeholder={
-                      lang === 'EN' ? 'Your email...' : 'Din e-mail...'
+                      lang === "EN" ? "Your email..." : "Din e-mail..."
                     }
                     className="flex-1 bg-pureWhite px-2.5 py-1 text-xs text-[#080808] border border-[#080808] focus:outline-none"
                   />
@@ -266,7 +270,7 @@ export default function UpdatesPage({
                   onClick={() => setShowSubscribeInput(true)}
                   className="mt-2 inline-flex items-center gap-1.5 font-montserrat font-extrabold italic text-xs sm:text-sm text-[#080808] uppercase hover:underline"
                 >
-                  <span>{lang === 'EN' ? 'SUBSCRIBE' : 'TILMELD'}</span>
+                  <span>{lang === "EN" ? "SUBSCRIBE" : "TILMELD"}</span>
                   <span aria-hidden="true">→</span>
                 </button>
               )}
@@ -276,23 +280,23 @@ export default function UpdatesPage({
       </main>
 
       {/* Bottom Area: Back Chevron + Three Slanted Yellow Navigation Buttons + Footer */}
-      <div className="relative z-20 w-full bg-[#EBEAE6] pt-1 flex flex-col shrink-0">
-        <BottomNav
-          activeTab="updates"
-          onSelectTab={handleSelectTab}
-          onBack={() => onNavigate('home')}
-          updatesLabel={lang === 'EN' ? 'Updates' : 'Opdateringer'}
-          lang={lang}
-        />
+      <div className="relative mt-2 z-20 w-full bg-[#EBEAE6] pt-2 sm:pt-3 flex flex-col shrink-0">
+        <div className="mb-6 pb-6 pt-2">
+          <BottomNav
+            activeTab="updates"
+            onSelectTab={handleSelectTab}
+            onBack={() => onNavigate("home")}
+            updatesLabel={lang === "EN" ? "Updates" : "Opdateringer"}
+            lang={lang}
+          />
+        </div>
         <WavyFooter
           lang={lang}
           onToggleLang={onToggleLang}
           variant="flat"
-          hideQrIcon
           bgClassName="bg-[#EBEAE6]"
         />
       </div>
     </div>
   );
 }
-

@@ -1,7 +1,7 @@
-import React from 'react';
-import BottomNav from './BottomNav';
-import WavyFooter from './WavyFooter';
-import homepageVideo from '../../CPH_MARATHON_2025_bw.mp4';
+import React from "react";
+import BottomNav from "./BottomNav";
+import WavyFooter from "./WavyFooter";
+import homepageVideo from "../../CPH_MARATHON_2025_bw.mp4";
 
 /**
  * Screen 2: Homepage (`Proto - Figma Part Update/Homepage.svg`)
@@ -12,12 +12,12 @@ import homepageVideo from '../../CPH_MARATHON_2025_bw.mp4';
  */
 export default function HomePage({ onNavigate, lang, onToggleLang }) {
   const handleSelectTab = (tab) => {
-    if (tab === 'updates') {
-      onNavigate('updates');
-    } else if (tab === 'explore') {
-      onNavigate('zones');
-    } else if (tab === 'track') {
-      onNavigate('track');
+    if (tab === "updates") {
+      onNavigate("updates");
+    } else if (tab === "explore") {
+      onNavigate("zones");
+    } else if (tab === "track") {
+      onNavigate("track");
     }
   };
 
@@ -41,10 +41,10 @@ export default function HomePage({ onNavigate, lang, onToggleLang }) {
       {/* Main Content Spacer + "TAP BELOW TO / FOLLOW THE RACE" Prompt */}
       <main className="relative z-20 flex-1 flex flex-col justify-end items-center text-center px-4 pb-6 sm:pb-10 pointer-events-none">
         <p className="font-montserrat font-medium text-pureWhite text-xs sm:text-sm md:text-[18px] tracking-[0.22em] uppercase drop-shadow">
-          {lang === 'EN' ? 'TAP BELOW TO' : 'TRYK HERUNDER FOR AT'}
+          {lang === "EN" ? "TAP BELOW TO" : "TRYK HERUNDER FOR AT"}
         </p>
         <h1 className="font-montserrat font-black text-primaryYellow text-2xl sm:text-3xl md:text-[42px] tracking-[0.06em] uppercase mt-1 drop-shadow-md">
-          {lang === 'EN' ? 'FOLLOW THE RACE' : 'FØLGE LØBET'}
+          {lang === "EN" ? "FOLLOW THE RACE" : "FØLGE LØBET"}
         </h1>
         <svg
           viewBox="0 0 70 16"
@@ -52,21 +52,20 @@ export default function HomePage({ onNavigate, lang, onToggleLang }) {
           xmlns="http://www.w3.org/2000/svg"
           className="w-12 sm:w-16 md:w-[70px] h-3 sm:h-4 mt-1.5 drop-shadow"
         >
-          <path
-            d="M0 0L34.622 9.277L69.245 0L34.622 16L0 0Z"
-            fill="#FFEE00"
-          />
+          <path d="M0 0L34.622 9.277L69.245 0L34.622 16L0 0Z" fill="#FFEE00" />
         </svg>
       </main>
 
       {/* Bottom Area: Three Slanted Yellow Navigation Buttons + Wavy Footer */}
-      <div className="relative z-20 w-full bg-pureWhite pt-3 sm:pt-4 flex flex-col shrink-0">
-        <BottomNav
-          activeTab={null}
-          onSelectTab={handleSelectTab}
-          updatesLabel={lang === 'EN' ? 'Live Updates' : 'Live Opdateringer'}
-          lang={lang}
-        />
+      <div className="relative mt-2 z-20 w-full bg-pureWhite pt-3 sm:pt-4 flex flex-col shrink-0">
+        <div className="mb-6 pb-6 pt-8">
+          <BottomNav
+            activeTab={null}
+            onSelectTab={handleSelectTab}
+            updatesLabel={lang === "EN" ? "Live Updates" : "Live Opdateringer"}
+            lang={lang}
+          />
+        </div>
         <WavyFooter lang={lang} onToggleLang={onToggleLang} variant="flat" />
       </div>
     </div>
