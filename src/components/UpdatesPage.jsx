@@ -70,16 +70,16 @@ export default function UpdatesPage({
   };
 
   return (
-    <div className="relative w-full h-full flex flex-col justify-between bg-[#EBEAE6] text-[#080808] overflow-hidden select-none">
-      {/* Scrollable Main Content */}
-      <main className="relative z-10 flex-1 overflow-y-auto px-5 sm:px-9 md:px-12 pt-14 sm:pt-16 pb-2">
-        {/* Top Meta Row: UPDATES + LIVE indicator */}
-        <div className="flex items-center justify-between text-[10px] sm:text-xs text-[#767676] mb-1">
-          <span className="font-montserrat font-semibold tracking-[0.28em] uppercase">
-            {lang === "EN" ? "UPDATES" : "OPDATERINGER"}
-          </span>
-          <span className="inline-flex items-center gap-2 font-medium">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#FFE500] inline-block animate-pulse" />
+    <div className="relative w-full h-full flex flex-col justify-between bg-white text-[#080808] overflow-hidden select-none">
+      {/* Main Content (Fits within viewport with no scrolling) */}
+      <main className="relative z-10 flex-1 overflow-hidden flex flex-col justify-between px-5 sm:px-9 md:px-12 pt-11 sm:pt-13 pb-1">
+        {/* Header Row: Main Heading + LIVE indicator (Eyebrow text removed) */}
+        <div className="flex items-baseline justify-between gap-2">
+          <h1 className="font-montserrat font-black italic text-xl sm:text-3xl md:text-[38px] leading-tight tracking-tight text-[#080808] uppercase">
+            {lang === "EN" ? "RACE DAY UPDATES" : "LØBSDAG OPDATERINGER"}
+          </h1>
+          <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs text-[#767676] font-medium shrink-0">
+            <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#FFE500] inline-block animate-pulse" />
             <span>
               {lang === "EN"
                 ? "LIVE · Updated 8 sec ago"
@@ -88,23 +88,18 @@ export default function UpdatesPage({
           </span>
         </div>
 
-        {/* Main Heading */}
-        <h1 className="font-montserrat font-black italic text-2xl sm:text-4xl md:text-[42px] leading-tight tracking-tight text-[#080808] uppercase mb-3 sm:mb-4">
-          {lang === "EN" ? "RACE DAY UPDATES" : "LØBSDAG OPDATERINGER"}
-        </h1>
-
         {/* SCHEDULE Timeline */}
-        <section className="mb-4 sm:mb-5">
-          <h2 className="font-montserrat font-semibold text-[10px] sm:text-xs tracking-[0.24em] text-[#767676] uppercase mb-2">
+        <section>
+          <h2 className="font-montserrat font-semibold text-[10px] sm:text-[11px] tracking-[0.24em] text-[#767676] uppercase mb-1.5">
             {lang === "EN" ? "SCHEDULE" : "TIDSPLAN"}
           </h2>
           <div className="relative pl-1">
             {/* Vertical Line connecting the 4 circles */}
             <div
               aria-hidden="true"
-              className="absolute left-[10px] top-2.5 bottom-2.5 w-[1.5px] bg-[#080808]"
+              className="absolute left-[9.5px] top-2 bottom-2 w-[1.5px] bg-[#080808]"
             />
-            <ul className="space-y-1.5 sm:space-y-2">
+            <ul className="space-y-1 sm:space-y-1.5">
               {SCHEDULE_ITEMS.map((item, idx) => {
                 const isActive = idx === activeScheduleIdx;
                 return (
@@ -114,16 +109,16 @@ export default function UpdatesPage({
                     className="relative flex items-center gap-3 sm:gap-4 cursor-pointer group"
                   >
                     <span
-                      className={`relative z-10 w-3.5 h-3.5 rounded-full border-[1.5px] border-[#080808] transition-colors ${
+                      className={`relative z-10 w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full border-[1.5px] border-[#080808] transition-colors ${
                         isActive
                           ? "bg-[#FFE500] ring-2 ring-[#FFE500]/40"
-                          : "bg-[#EBEAE6] group-hover:bg-[#FFE500]/50"
+                          : "bg-white group-hover:bg-[#FFE500]/50"
                       }`}
                     />
-                    <span className="font-montserrat font-bold italic text-xs sm:text-sm md:text-[15px] w-12 sm:w-14 text-[#080808]">
+                    <span className="font-montserrat font-bold italic text-xs sm:text-[14px] w-11 sm:w-13 text-[#080808]">
                       {item.time}
                     </span>
-                    <span className="font-montserrat text-xs sm:text-sm md:text-[14px] text-[#1E1E1E]">
+                    <span className="font-montserrat text-xs sm:text-[13px] text-[#1E1E1E]">
                       {lang === "EN" ? item.en : item.dk}
                     </span>
                   </li>
@@ -134,15 +129,15 @@ export default function UpdatesPage({
         </section>
 
         {/* TOP 5 FIRST & LAST 5 Leaderboards */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-7 mb-4 sm:mb-5">
+        <section className="grid grid-cols-2 gap-4 sm:gap-7">
           {/* TOP 5 FIRST */}
           <div>
-            <div className="inline-block bg-[#FFE500] -skew-x-[14deg] px-4 py-1 mb-2 min-w-[160px] sm:min-w-[185px]">
-              <h3 className="skew-x-[14deg] font-montserrat font-extrabold italic text-xs sm:text-sm md:text-[16px] text-[#080808] uppercase tracking-wide">
+            <div className="inline-block bg-[#FFE500] -skew-x-[14deg] px-3 sm:px-4 py-0.5 sm:py-1 mb-1.5 min-w-[130px] sm:min-w-[175px]">
+              <h3 className="skew-x-[14deg] font-montserrat font-extrabold italic text-[11px] sm:text-sm md:text-[15px] text-[#080808] uppercase tracking-wide">
                 {lang === "EN" ? "TOP 5 FIRST" : "TOP 5 FØRSTE"}
               </h3>
             </div>
-            <ul className="divide-y divide-[#D6D5D0] border-b border-[#D6D5D0]">
+            <ul className="divide-y divide-[#E5E5E5] border-b border-[#E5E5E5]">
               {TOP_5_FIRST.map((runner) => (
                 <li
                   key={runner.rank}
@@ -156,17 +151,17 @@ export default function UpdatesPage({
                       ? `Track ${runner.name}`
                       : `Følg ${runner.name}`
                   }
-                  className="py-1 sm:py-1.5 flex items-center justify-between text-xs sm:text-[13px] cursor-pointer hover:bg-pureBlack/5 px-1 rounded transition-colors"
+                  className="py-0.5 sm:py-1 flex items-center justify-between text-[11px] sm:text-xs md:text-[13px] cursor-pointer hover:bg-pureBlack/5 px-1 rounded transition-colors"
                 >
-                  <div className="flex items-center gap-2.5">
-                    <span className="font-montserrat font-bold italic text-[#767676] w-3">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="font-montserrat font-bold italic text-[#767676] w-3 shrink-0">
                       {runner.rank}
                     </span>
-                    <span className="font-montserrat font-bold text-[#080808]">
+                    <span className="font-montserrat font-bold text-[#080808] truncate">
                       {runner.name}
                     </span>
                   </div>
-                  <span className="font-montserrat font-normal text-[#080808] tabular-nums">
+                  <span className="font-montserrat font-normal text-[#080808] tabular-nums shrink-0 ml-2">
                     {runner.time}
                   </span>
                 </li>
@@ -176,12 +171,12 @@ export default function UpdatesPage({
 
           {/* LAST 5 */}
           <div>
-            <div className="inline-block bg-[#FFE500] -skew-x-[14deg] px-4 py-1 mb-2 min-w-[160px] sm:min-w-[185px]">
-              <h3 className="skew-x-[14deg] font-montserrat font-extrabold italic text-xs sm:text-sm md:text-[16px] text-[#080808] uppercase tracking-wide">
+            <div className="inline-block bg-[#FFE500] -skew-x-[14deg] px-3 sm:px-4 py-0.5 sm:py-1 mb-1.5 min-w-[130px] sm:min-w-[175px]">
+              <h3 className="skew-x-[14deg] font-montserrat font-extrabold italic text-[11px] sm:text-sm md:text-[15px] text-[#080808] uppercase tracking-wide">
                 {lang === "EN" ? "LAST 5" : "SIDSTE 5"}
               </h3>
             </div>
-            <ul className="divide-y divide-[#D6D5D0] border-b border-[#D6D5D0]">
+            <ul className="divide-y divide-[#E5E5E5] border-b border-[#E5E5E5]">
               {LAST_5.map((runner) => (
                 <li
                   key={runner.rank}
@@ -195,17 +190,17 @@ export default function UpdatesPage({
                       ? `Track ${runner.name}`
                       : `Følg ${runner.name}`
                   }
-                  className="py-1 sm:py-1.5 flex items-center justify-between text-xs sm:text-[13px] cursor-pointer hover:bg-pureBlack/5 px-1 rounded transition-colors"
+                  className="py-0.5 sm:py-1 flex items-center justify-between text-[11px] sm:text-xs md:text-[13px] cursor-pointer hover:bg-pureBlack/5 px-1 rounded transition-colors"
                 >
-                  <div className="flex items-center gap-2.5">
-                    <span className="font-montserrat font-bold italic text-[#767676] w-3">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="font-montserrat font-bold italic text-[#767676] w-3 shrink-0">
                       {runner.rank}
                     </span>
-                    <span className="font-montserrat font-bold text-[#080808]">
+                    <span className="font-montserrat font-bold text-[#080808] truncate">
                       {runner.name}
                     </span>
                   </div>
-                  <span className="font-montserrat font-normal text-[#080808] tabular-nums">
+                  <span className="font-montserrat font-normal text-[#080808] tabular-nums shrink-0 ml-2">
                     {runner.time}
                   </span>
                 </li>
@@ -214,10 +209,10 @@ export default function UpdatesPage({
           </div>
         </section>
 
-        {/* STAY IN THE LOOP Slanted Yellow Banner */}
-        <section className="relative mx-1 sm:mx-2">
-          <div className="bg-[#FFE500] -skew-x-[5deg] p-3.5 sm:p-5 shadow-[5px_5px_0px_rgba(0,0,0,0.14)] flex items-center gap-4 sm:gap-6">
-            <div className="skew-x-[5deg] w-24 h-24 sm:w-32 sm:h-32 bg-pureWhite p-2 shrink-0 flex items-center justify-center">
+        {/* STAY IN THE LOOP Slanted Yellow Banner (Sized to fit cleanly without clipping) */}
+        <section className="relative px-2 sm:px-3 pb-1">
+          <div className="bg-[#FFE500] -skew-x-[4deg] px-3.5 py-2.5 sm:px-5 sm:py-3.5 shadow-[4px_4px_0px_rgba(0,0,0,0.12)] flex items-center gap-3.5 sm:gap-5">
+            <div className="skew-x-[4deg] w-16 h-16 sm:w-24 sm:h-24 bg-white p-1.5 shrink-0 flex items-center justify-center">
               <img
                 src="/assets/qr-code.png"
                 alt="Newsletter QR Code"
@@ -225,18 +220,18 @@ export default function UpdatesPage({
               />
             </div>
 
-            <div className="skew-x-[5deg] flex-1 min-w-0">
-              <h3 className="font-montserrat font-extrabold italic text-base sm:text-xl md:text-[22px] text-[#080808] uppercase tracking-tight">
+            <div className="skew-x-[4deg] flex-1 min-w-0">
+              <h3 className="font-montserrat font-extrabold italic text-sm sm:text-lg md:text-[20px] text-[#080808] uppercase tracking-tight leading-tight">
                 {lang === "EN" ? "STAY IN THE LOOP" : "HOLD DIG OPDATERET"}
               </h3>
-              <p className="font-montserrat text-[11px] sm:text-xs md:text-[13px] text-[#080808] leading-snug mt-1 max-w-md">
+              <p className="font-montserrat text-[10px] sm:text-xs text-[#080808] leading-snug mt-0.5 max-w-md">
                 {lang === "EN"
                   ? "Scan the QR code to get live race updates, results and highlights in the Copenhagen Marathon newsletter."
                   : "Scan QR-koden for at få live løbsopdateringer, resultater og højdepunkter i Copenhagen Marathon-nyhedsbrevet."}
               </p>
 
               {subscribed ? (
-                <p className="mt-2 font-montserrat font-bold italic text-xs sm:text-sm text-[#080808]">
+                <p className="mt-1.5 font-montserrat font-bold italic text-[11px] sm:text-xs text-[#080808]">
                   ✓{" "}
                   {lang === "EN"
                     ? "Subscribed to live updates!"
@@ -245,7 +240,7 @@ export default function UpdatesPage({
               ) : showSubscribeInput ? (
                 <form
                   onSubmit={handleSubscribeSubmit}
-                  className="mt-2 flex items-center gap-2 max-w-xs"
+                  className="mt-1.5 flex items-center gap-2 max-w-xs"
                 >
                   <input
                     type="email"
@@ -255,11 +250,11 @@ export default function UpdatesPage({
                     placeholder={
                       lang === "EN" ? "Your email..." : "Din e-mail..."
                     }
-                    className="flex-1 bg-pureWhite px-2.5 py-1 text-xs text-[#080808] border border-[#080808] focus:outline-none"
+                    className="flex-1 bg-white px-2 py-0.5 text-xs text-[#080808] border border-[#080808] focus:outline-none"
                   />
                   <button
                     type="submit"
-                    className="bg-[#080808] text-[#FFE500] font-montserrat font-bold italic text-xs px-3 py-1"
+                    className="bg-[#080808] text-[#FFE500] font-montserrat font-bold italic text-xs px-2.5 py-0.5"
                   >
                     OK
                   </button>
@@ -268,7 +263,7 @@ export default function UpdatesPage({
                 <button
                   type="button"
                   onClick={() => setShowSubscribeInput(true)}
-                  className="mt-2 inline-flex items-center gap-1.5 font-montserrat font-extrabold italic text-xs sm:text-sm text-[#080808] uppercase hover:underline"
+                  className="mt-1.5 inline-flex items-center gap-1.5 font-montserrat font-extrabold italic text-[11px] sm:text-xs text-[#080808] uppercase hover:underline"
                 >
                   <span>{lang === "EN" ? "SUBSCRIBE" : "TILMELD"}</span>
                   <span aria-hidden="true">→</span>
@@ -280,8 +275,8 @@ export default function UpdatesPage({
       </main>
 
       {/* Bottom Area: Back Chevron + Three Slanted Yellow Navigation Buttons + Footer */}
-      <div className="relative mt-2 z-20 w-full bg-[#EBEAE6] pt-2 sm:pt-3 flex flex-col shrink-0">
-        <div className="mb-6 pb-6 pt-2">
+      <div className="relative z-20 w-full bg-white pt-1 flex flex-col shrink-0">
+        <div className="mb-5 pb-4 pt-1">
           <BottomNav
             activeTab="updates"
             onSelectTab={handleSelectTab}
@@ -294,7 +289,7 @@ export default function UpdatesPage({
           lang={lang}
           onToggleLang={onToggleLang}
           variant="flat"
-          bgClassName="bg-[#EBEAE6]"
+          bgClassName="bg-white"
         />
       </div>
     </div>

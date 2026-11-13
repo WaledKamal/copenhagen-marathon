@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import TopHeader from './components/TopHeader';
-import LandingPage from './components/LandingPage';
-import HomePage from './components/HomePage';
-import ZonesPage from './components/ZonesPage';
-import UpdatesPage from './components/UpdatesPage';
-import TrackRunnerPage from './components/TrackRunnerPage';
-import DocsPage from './components/DocsPage';
+import React, { useState, useEffect } from "react";
+import TopHeader from "./components/TopHeader";
+import LandingPage from "./components/LandingPage";
+import HomePage from "./components/HomePage";
+import ZonesPage from "./components/ZonesPage";
+import UpdatesPage from "./components/UpdatesPage";
+import TrackRunnerPage from "./components/TrackRunnerPage";
+import DocsPage from "./components/DocsPage";
 
 /**
  * Copenhagen Marathon Spectator PWA
@@ -15,48 +15,48 @@ import DocsPage from './components/DocsPage';
  */
 export default function App() {
   const getInitialScreen = () => {
-    if (typeof window !== 'undefined' && window.location.pathname === '/docs') {
-      return 'docs';
+    if (typeof window !== "undefined" && window.location.pathname === "/docs") {
+      return "docs";
     }
-    return 'landing';
+    return "landing";
   };
 
   const [currentScreen, setCurrentScreen] = useState(getInitialScreen);
-  const [lang, setLang] = useState('EN'); // 'EN' | 'DK'
-  const [initialRunnerQuery, setInitialRunnerQuery] = useState('');
+  const [lang, setLang] = useState("EN"); // 'EN' | 'DK'
+  const [initialRunnerQuery, setInitialRunnerQuery] = useState("");
 
   const navigateTo = (screen) => {
-    if (screen !== 'track') {
-      setInitialRunnerQuery('');
+    if (screen !== "track") {
+      setInitialRunnerQuery("");
     }
     setCurrentScreen(screen);
-    if (typeof window !== 'undefined') {
-      const targetPath = screen === 'docs' ? '/docs' : '/';
+    if (typeof window !== "undefined") {
+      const targetPath = screen === "docs" ? "/docs" : "/";
       if (window.location.pathname !== targetPath) {
-        window.history.pushState({ screen }, '', targetPath);
+        window.history.pushState({ screen }, "", targetPath);
       }
     }
   };
 
   const handleTrackSpecificRunner = (runnerNameOrBib) => {
     setInitialRunnerQuery(runnerNameOrBib);
-    setCurrentScreen('track');
+    setCurrentScreen("track");
   };
 
   useEffect(() => {
     const handlePopState = () => {
-      if (window.location.pathname === '/docs') {
-        setCurrentScreen('docs');
+      if (window.location.pathname === "/docs") {
+        setCurrentScreen("docs");
       } else {
-        setCurrentScreen('landing');
+        setCurrentScreen("landing");
       }
     };
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  if (currentScreen === 'docs') {
-    return <DocsPage onBackToApp={() => navigateTo('landing')} />;
+  if (currentScreen === "docs") {
+    return <DocsPage onBackToApp={() => navigateTo("landing")} />;
   }
 
   return (
@@ -73,23 +73,18 @@ export default function App() {
       */}
       <div className="relative w-full h-full lg:max-w-[834px] lg:max-h-[1194px] lg:rounded-[26px] lg:shadow-[0_25px_70px_rgba(0,0,0,0.75)] lg:ring-1 lg:ring-pureWhite/15 overflow-hidden flex flex-col bg-darkOverlay">
         {/* Shared Top Area: Quick screen switcher + White double-arrows logo */}
-        <TopHeader
-          currentScreen={currentScreen}
-          onNavigate={navigateTo}
-          onLogoClick={() => navigateTo('landing')}
-        />
 
         {/* Active Screen */}
         <div className="relative flex-1 w-full h-full overflow-hidden">
-          {currentScreen === 'landing' && (
+          {currentScreen === "landing" && (
             <LandingPage
-              onStart={() => navigateTo('home')}
+              onStart={() => navigateTo("home")}
               lang={lang}
               onToggleLang={setLang}
             />
           )}
 
-          {currentScreen === 'home' && (
+          {currentScreen === "home" && (
             <HomePage
               onNavigate={navigateTo}
               lang={lang}
@@ -97,7 +92,7 @@ export default function App() {
             />
           )}
 
-          {currentScreen === 'updates' && (
+          {currentScreen === "updates" && (
             <UpdatesPage
               onNavigate={navigateTo}
               onTrackRunner={handleTrackSpecificRunner}
@@ -106,7 +101,7 @@ export default function App() {
             />
           )}
 
-          {currentScreen === 'zones' && (
+          {currentScreen === "zones" && (
             <ZonesPage
               onNavigate={navigateTo}
               lang={lang}
@@ -114,7 +109,7 @@ export default function App() {
             />
           )}
 
-          {currentScreen === 'track' && (
+          {currentScreen === "track" && (
             <TrackRunnerPage
               onNavigate={navigateTo}
               initialQuery={initialRunnerQuery}
